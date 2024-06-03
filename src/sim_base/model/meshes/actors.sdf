@@ -1,0 +1,1274 @@
+<sdf version='1.7'>
+  <model name='actors'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0.027302 -0.000246 0.014309 0 -0 0</pose>
+        <mass>4.031</mass>
+        <inertia>
+          <ixx>0.0186016</ixx>
+          <ixy>-0.000172896</ixy>
+          <ixz>-0.0102002</ixz>
+          <iyy>0.0518014</iyy>
+          <iyz>-2.76742e-05</iyz>
+          <izz>0.0484003</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_fixed_joint_lump__body_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.236 0.19 0.109</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__head_collision_1'>
+        <pose>0.256 0 0.12 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.076 0.06 0.04</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__head_collision_2'>
+        <pose>0.225 0 0.15 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.08 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__imu_link_collision_3'>
+        <pose>0.0334 -0.017277 0.051047 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__body_visual_1'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://body.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__imu_link_visual_2'>
+        <pose>0.0334 -0.017277 0.051047 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Red</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <sensor name='imu_sensor' type='imu'>
+        <plugin name='imu_plugin' filename='libgazebo_ros_imu_sensor.so'>
+          <ros>
+            <namespace>/</namespace>
+            <remapping>~/out:=imu</remapping>
+          </ros>
+          <initial_orientation_as_reference>0</initial_orientation_as_reference>
+        </plugin>
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <visualize>1</visualize>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type='gaussian'>
+                <mean>0</mean>
+                <stddev>0.0002</stddev>
+                <bias_mean>7.5e-06</bias_mean>
+                <bias_stddev>8e-07</bias_stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type='gaussian'>
+                <mean>0</mean>
+                <stddev>0.0002</stddev>
+                <bias_mean>7.5e-06</bias_mean>
+                <bias_stddev>8e-07</bias_stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type='gaussian'>
+                <mean>0</mean>
+                <stddev>0.0002</stddev>
+                <bias_mean>7.5e-06</bias_mean>
+                <bias_stddev>8e-07</bias_stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type='gaussian'>
+                <mean>0</mean>
+                <stddev>0.017</stddev>
+                <bias_mean>0.1</bias_mean>
+                <bias_stddev>0.001</bias_stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type='gaussian'>
+                <mean>0</mean>
+                <stddev>0.017</stddev>
+                <bias_mean>0.1</bias_mean>
+                <bias_stddev>0.001</bias_stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type='gaussian'>
+                <mean>0</mean>
+                <stddev>0.017</stddev>
+                <bias_mean>0.1</bias_mean>
+                <bias_stddev>0.001</bias_stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+        <pose>0.0334 -0.017277 0.051047 0 -0 0</pose>
+      </sensor>
+    </link>
+    <joint name='FL_abad_joint' type='revolute'>
+      <pose relative_to='base_link'>0.164 0.042 0 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>FL_abad</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.680678</lower>
+          <upper>0.680678</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='FL_abad'>
+      <pose relative_to='FL_abad_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.012246 0.012929 -0.000264 0 -0 0</pose>
+        <mass>0.4107</mass>
+        <inertia>
+          <ixx>0.000226301</ixx>
+          <ixy>-7.12124e-05</ixy>
+          <ixz>5.57934e-07</ixz>
+          <iyy>0.000501569</iyy>
+          <iyz>2.17432e-06</iyz>
+          <izz>0.000447061</izz>
+        </inertia>
+      </inertial>
+      <collision name='FL_abad_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='FL_abad_fixed_joint_lump__FL_hip_shoulder_collision_1'>
+        <pose>0 0.059 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='FL_abad_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://abad.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+    <joint name='FL_hip_joint' type='revolute'>
+      <pose relative_to='FL_abad'>0 0.094 0 0 -0 0</pose>
+      <parent>FL_abad</parent>
+      <child>FL_hip</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.32645</lower>
+          <upper>2.79253</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='FL_hip'>
+      <pose relative_to='FL_hip_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.001716 -0.027638 -0.014896 0 -0 0</pose>
+        <mass>0.5954</mass>
+        <inertia>
+          <ixx>0.00124548</ixx>
+          <ixy>2.88782e-05</ixy>
+          <ixz>-4.2081e-05</ixz>
+          <iyy>0.00111009</iyy>
+          <iyz>0.000256094</iyz>
+          <izz>0.000551811</izz>
+        </inertia>
+      </inertial>
+      <collision name='FL_hip_collision'>
+        <pose>0 0 -0.06 0 1.5708 0</pose>
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.034</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='FL_hip_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hip.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='FL_knee_joint' type='revolute'>
+      <pose relative_to='FL_hip'>0 0 -0.12 0 -0 0</pose>
+      <parent>FL_hip</parent>
+      <child>FL_knee</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.53073</lower>
+          <upper>-0.523599</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='FL_knee'>
+      <pose relative_to='FL_knee_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.0006 -4.7e-05 -0.0893 0 -0 0</pose>
+        <mass>0.116</mass>
+        <inertia>
+          <ixx>0.000668</ixx>
+          <ixy>3e-09</ixy>
+          <ixz>2.37e-05</ixz>
+          <iyy>0.000674</iyy>
+          <iyz>6.03e-07</iyz>
+          <izz>1.54e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='FL_knee_collision'>
+        <pose>0 0 -0.091705 3.14159 0 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.016 0.016 0.18341</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='FL_knee_rubber_collision_1'>
+        <pose>-0.01 0 -0.007 3.14159 0 3.14159</pose>
+        <geometry>
+          <sphere>
+            <radius>0.016</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='FL_knee_fixed_joint_lump__FL_foot_collision_2'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.019</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='FL_knee_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://knee.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='FL_knee_fixed_joint_lump__FL_foot_visual_1'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.009</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='FR_abad_joint' type='revolute'>
+      <pose relative_to='base_link'>0.164 -0.042 0 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>FR_abad</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.680678</lower>
+          <upper>0.680678</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='FR_abad'>
+      <pose relative_to='FR_abad_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.012246 -0.012929 -0.000264 0 -0 0</pose>
+        <mass>0.4107</mass>
+        <inertia>
+          <ixx>0.000226301</ixx>
+          <ixy>7.12124e-05</ixy>
+          <ixz>5.57934e-07</ixz>
+          <iyy>0.000501569</iyy>
+          <iyz>-2.17432e-06</iyz>
+          <izz>0.000447061</izz>
+        </inertia>
+      </inertial>
+      <collision name='FR_abad_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='FR_abad_fixed_joint_lump__FR_hip_shoulder_collision_1'>
+        <pose>0 -0.059 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='FR_abad_visual'>
+        <pose>0 0 0 3.14159 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://abad.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+    <joint name='FR_hip_joint' type='revolute'>
+      <pose relative_to='FR_abad'>0 -0.094 0 0 -0 0</pose>
+      <parent>FR_abad</parent>
+      <child>FR_hip</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.32645</lower>
+          <upper>2.79253</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='FR_hip'>
+      <pose relative_to='FR_hip_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.001716 0.027638 -0.014896 0 -0 0</pose>
+        <mass>0.5954</mass>
+        <inertia>
+          <ixx>0.00124548</ixx>
+          <ixy>-2.88782e-05</ixy>
+          <ixz>-4.2081e-05</ixz>
+          <iyy>0.00111009</iyy>
+          <iyz>-0.000256094</iyz>
+          <izz>0.000551811</izz>
+        </inertia>
+      </inertial>
+      <collision name='FR_hip_collision'>
+        <pose>0 0 -0.06 0 1.5708 0</pose>
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.034</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='FR_hip_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hip_mirror.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='FR_knee_joint' type='revolute'>
+      <pose relative_to='FR_hip'>0 0 -0.12 0 -0 0</pose>
+      <parent>FR_hip</parent>
+      <child>FR_knee</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.53073</lower>
+          <upper>-0.523599</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='FR_knee'>
+      <pose relative_to='FR_knee_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.0006 -4.7e-05 -0.0893 0 -0 0</pose>
+        <mass>0.116</mass>
+        <inertia>
+          <ixx>0.000668</ixx>
+          <ixy>3e-09</ixy>
+          <ixz>2.37e-05</ixz>
+          <iyy>0.000674</iyy>
+          <iyz>6.03e-07</iyz>
+          <izz>1.54e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='FR_knee_collision'>
+        <pose>0 0 -0.091705 3.14159 0 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.016 0.016 0.18341</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='FR_knee_rubber_collision_1'>
+        <pose>-0.01 0 -0.007 3.14159 0 3.14159</pose>
+        <geometry>
+          <sphere>
+            <radius>0.016</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='FR_knee_fixed_joint_lump__FR_foot_collision_2'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.019</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='FR_knee_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://knee.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='FR_knee_fixed_joint_lump__FR_foot_visual_1'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.009</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='RL_abad_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.164 0.042 0 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>RL_abad</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.680678</lower>
+          <upper>0.680678</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RL_abad'>
+      <pose relative_to='RL_abad_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.012246 0.012929 -0.000264 0 -0 0</pose>
+        <mass>0.4107</mass>
+        <inertia>
+          <ixx>0.000226301</ixx>
+          <ixy>7.12124e-05</ixy>
+          <ixz>-5.57934e-07</ixz>
+          <iyy>0.000501569</iyy>
+          <iyz>2.17432e-06</iyz>
+          <izz>0.000447061</izz>
+        </inertia>
+      </inertial>
+      <collision name='RL_abad_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='RL_abad_fixed_joint_lump__RL_hip_shoulder_collision_1'>
+        <pose>0 0.059 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='RL_abad_visual'>
+        <pose>0 0 0 3.14159 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://abad.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+    <joint name='RL_hip_joint' type='revolute'>
+      <pose relative_to='RL_abad'>0 0.094 0 0 -0 0</pose>
+      <parent>RL_abad</parent>
+      <child>RL_hip</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.977384</lower>
+          <upper>3.14159</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RL_hip'>
+      <pose relative_to='RL_hip_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.001716 -0.027638 -0.014896 0 -0 0</pose>
+        <mass>0.5954</mass>
+        <inertia>
+          <ixx>0.00124548</ixx>
+          <ixy>2.88782e-05</ixy>
+          <ixz>-4.2081e-05</ixz>
+          <iyy>0.00111009</iyy>
+          <iyz>0.000256094</iyz>
+          <izz>0.000551811</izz>
+        </inertia>
+      </inertial>
+      <collision name='RL_hip_collision'>
+        <pose>0 0 -0.06 0 1.5708 0</pose>
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.034</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='RL_hip_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hip.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='RL_knee_joint' type='revolute'>
+      <pose relative_to='RL_hip'>0 0 -0.12 0 -0 0</pose>
+      <parent>RL_hip</parent>
+      <child>RL_knee</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.53073</lower>
+          <upper>-0.523599</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RL_knee'>
+      <pose relative_to='RL_knee_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.0006 -4.7e-05 -0.0893 0 -0 0</pose>
+        <mass>0.116</mass>
+        <inertia>
+          <ixx>0.000668</ixx>
+          <ixy>3e-09</ixy>
+          <ixz>2.37e-05</ixz>
+          <iyy>0.000674</iyy>
+          <iyz>6.03e-07</iyz>
+          <izz>1.54e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='RL_knee_collision'>
+        <pose>0 0 -0.091705 3.14159 0 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.016 0.016 0.18341</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>5e+09</kp>
+              <kd>50000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='RL_knee_rubber_collision_1'>
+        <pose>-0.01 0 -0.007 3.14159 0 3.14159</pose>
+        <geometry>
+          <sphere>
+            <radius>0.016</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>5e+09</kp>
+              <kd>50000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='RL_knee_fixed_joint_lump__RL_foot_collision_2'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.019</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='RL_knee_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://knee.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='RL_knee_fixed_joint_lump__RL_foot_visual_1'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.009</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='RR_abad_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.164 -0.042 0 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>RR_abad</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.680678</lower>
+          <upper>0.680678</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RR_abad'>
+      <pose relative_to='RR_abad_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.012246 -0.012929 -0.000264 0 -0 0</pose>
+        <mass>0.4107</mass>
+        <inertia>
+          <ixx>0.000226301</ixx>
+          <ixy>-7.12124e-05</ixy>
+          <ixz>-5.57934e-07</ixz>
+          <iyy>0.000501569</iyy>
+          <iyz>-2.17432e-06</iyz>
+          <izz>0.000447061</izz>
+        </inertia>
+      </inertial>
+      <collision name='RR_abad_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='RR_abad_fixed_joint_lump__RR_hip_shoulder_collision_1'>
+        <pose>0 -0.059 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.035</length>
+            <radius>0.039</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='RR_abad_visual'>
+        <pose>0 0 0 -0 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://abad.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+    <joint name='RR_hip_joint' type='revolute'>
+      <pose relative_to='RR_abad'>0 -0.094 0 0 -0 0</pose>
+      <parent>RR_abad</parent>
+      <child>RR_hip</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.977384</lower>
+          <upper>3.14159</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RR_hip'>
+      <pose relative_to='RR_hip_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.001716 0.027638 -0.014896 0 -0 0</pose>
+        <mass>0.5954</mass>
+        <inertia>
+          <ixx>0.00124548</ixx>
+          <ixy>-2.88782e-05</ixy>
+          <ixz>-4.2081e-05</ixz>
+          <iyy>0.00111009</iyy>
+          <iyz>-0.000256094</iyz>
+          <izz>0.000551811</izz>
+        </inertia>
+      </inertial>
+      <collision name='RR_hip_collision'>
+        <pose>0 0 -0.06 0 1.5708 0</pose>
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.034</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='RR_hip_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hip_mirror.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='RR_knee_joint' type='revolute'>
+      <pose relative_to='RR_hip'>0 0 -0.12 0 -0 0</pose>
+      <parent>RR_hip</parent>
+      <child>RR_knee</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.53073</lower>
+          <upper>-0.523599</upper>
+          <effort>12.0001</effort>
+          <velocity>30.9971</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RR_knee'>
+      <pose relative_to='RR_knee_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.0006 -4.7e-05 -0.0893 0 -0 0</pose>
+        <mass>0.116</mass>
+        <inertia>
+          <ixx>0.000668</ixx>
+          <ixy>3e-09</ixy>
+          <ixz>2.37e-05</ixz>
+          <iyy>0.000674</iyy>
+          <iyz>6.03e-07</iyz>
+          <izz>1.54e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='RR_knee_collision'>
+        <pose>0 0 -0.091705 3.14159 0 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.016 0.016 0.18341</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>5e+09</kp>
+              <kd>50000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='RR_knee_rubber_collision_1'>
+        <pose>-0.01 0 -0.007 3.14159 0 3.14159</pose>
+        <geometry>
+          <sphere>
+            <radius>0.016</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>5e+09</kp>
+              <kd>50000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='RR_knee_fixed_joint_lump__RR_foot_collision_2'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.019</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>50000</kp>
+              <kd>5000</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='RR_knee_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://knee.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='RR_knee_fixed_joint_lump__RR_foot_visual_1'>
+        <pose>0.0055 0 -0.17391 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.009</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+      <self_collide>1</self_collide>
+    </link>
+    <static>0</static>
+  </model>
+</sdf>

@@ -1,0 +1,12 @@
+# UsrCmd.srv
+
+float64 cmd_velx
+float64 cmd_vely
+float64 cmd_yaw
+float64 cmd_pitch
+float64 foot_height
+int64     gait_type
+
+---
+
+bool cmd_result
