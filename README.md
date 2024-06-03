@@ -8,6 +8,8 @@ ros2+gazebo11
 
 地形适应
 
+https://github.com/WLinZhen/cyberdog_sim/assets/144916746/376e69a2-d141-49e4-975d-56219c551378
+
 
 基于地形适应的落足点规划
 
