@@ -2,7 +2,7 @@
 
 基于cyberdog2的gazebo仿真实现
 
-实现效果如下
+# 实现效果如下
 
 地形适应
 
@@ -13,7 +13,7 @@ https://github.com/WLinZhen/cyberdog_sim/assets/144916746/376e69a2-d141-49e4-975
 
 https://github.com/WLinZhen/cyberdog_sim/assets/144916746/fbeb1b39-5bef-408b-bcd7-a6084f8f023a
 
-部署环境
+# 部署环境
 
 1. ubuntu20.04通过ros2一键安装命令安装ros2-galactic
 
@@ -31,7 +31,7 @@ sudo apt-get install ros-galactic-gazebo-ros-*
 sudo apt install ros-galactic-xacro
 ```
 
-编译项目
+# 编译项目
 
 在cyberdog_sim文件夹下打开终端，确保当前在cyberdog_sim文件夹下
 
@@ -59,11 +59,11 @@ ros2 launch sim_base rviz.launch.py
 ros2 run cyber_guide cyber_guide
 ```
 
-实机 电机sdk转ros cyber_io
+# 实机 电机sdk转ros cyber_io
 
 1. 安装lcm
 
-# 源码安装：
+源码安装：
 ```
 git clone https://github.com/lcm-proj/lcm.git
 cd lcm
@@ -80,7 +80,7 @@ sudo make install
 colcon build
 ```
 
-使用方法 
+3. 使用方法 
 
 通过网线接口连接cyberdog2 ，并将用户电脑IPv4设为：192.168.44.100/255.255.255.0
 
