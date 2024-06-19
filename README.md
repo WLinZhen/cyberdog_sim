@@ -39,7 +39,7 @@ sudo apt install ros-galactic-xacro
 colcon build
 ```
 
-使用方法
+使用方法 -每一步确保在cyberdog_sim文件夹下打开新终端，并且使用source install/setup.bash
 
 1. 启动仿真
 
@@ -58,3 +58,37 @@ ros2 launch sim_base rviz.launch.py
 ```
 ros2 run cyber_guide cyber_guide
 ```
+
+实机 电机sdk转ros cyber_io
+
+1. 安装lcm
+
+# 源码安装：
+```
+git clone https://github.com/lcm-proj/lcm.git
+cd lcm
+mkdir build && cd build
+cmake .. && make
+sudo make install
+```
+
+2. 编译项目
+
+在cyberdog_io文件夹下打开终端，确保当前在cyberdog_io文件夹下
+
+```
+colcon build
+```
+
+使用方法 
+
+通过网线接口连接cyberdog2 ，并将用户电脑IPv4设为：192.168.44.100/255.255.255.0
+
+在cyberdog_io文件夹下打开终端，确保当前在cyberdog_io文件夹下,并且使用source install/setup.bash
+
+```
+./a.sh
+
+ros2 run cyber_base Example_MotorCtrl
+```
+

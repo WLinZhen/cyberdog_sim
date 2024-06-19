@@ -1,0 +1,3 @@
+
+
+bool cmd_result

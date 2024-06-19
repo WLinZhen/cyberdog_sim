@@ -1,0 +1,38 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from ros_bridge/msg/SimBase.msg
+// generated code does not contain a copyright notice
+
+
+module ros_bridge {
+  module msg {
+    @verbatim (language="comment", text=
+      "SimBase.msg")
+    struct SimBase {
+      double orientation_w;
+
+      double orientation_x;
+
+      double orientation_y;
+
+      double orientation_z;
+
+      double position_x;
+
+      double position_y;
+
+      double position_z;
+
+      double linear_velocity_x;
+
+      double linear_velocity_y;
+
+      double linear_velocity_z;
+
+      double angular_velocity_x;
+
+      double angular_velocity_y;
+
+      double angular_velocity_z;
+    };
+  };
+};

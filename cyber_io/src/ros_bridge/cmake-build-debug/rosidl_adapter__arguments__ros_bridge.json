@@ -1,0 +1,11 @@
+{
+  "package_name": "ros_bridge",
+  "non_idl_tuples": [
+    "/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge:msg/LeggedCommand.msg",
+    "/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge:msg/SimImu.msg",
+    "/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge:msg/SimJoint.msg",
+    "/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge:msg/SimBase.msg",
+    "/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge:msg/Estimate.msg",
+    "/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge:srv/UsrCmd.srv"
+  ]
+}
