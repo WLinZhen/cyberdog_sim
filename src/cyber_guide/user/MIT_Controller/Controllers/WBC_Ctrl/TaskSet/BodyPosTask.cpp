@@ -3,7 +3,7 @@
 
 #include <Dynamics/FloatingBaseModel.h>
 #include <Dynamics/Quadruped.h>
-#include <Utilities/Utilities_print.h>
+
 
 template <typename T>
 BodyPosTask<T>::BodyPosTask(const FloatingBaseModel<T>* robot)

@@ -12,12 +12,13 @@
 #include "Controllers/OrientationEstimator.h"
 #include "Dynamics/Cheetah3.h"
 #include "Dynamics/MiniCheetah.h"
-#include "Utilities/Utilities_print.h"
+
 #include "ParamHandler.hpp"
 #include "Utilities/Timer.h"
 #include "Controllers/PositionVelocityEstimator.h"
 //#include "rt/rt_interface_lcm.h"
-
+#define rt_board
+//#define rt_srv
 RobotRunner::RobotRunner(RobotController* robot_ctrl,
     PeriodicTaskManager* manager,
     float period, std::string name):
@@ -26,9 +27,13 @@ RobotRunner::RobotRunner(RobotController* robot_ctrl,
     _robot_ctrl = robot_ctrl;
 
     // use for keyboard control
+#ifdef rt_board
     _keyBoardControl = new KeyBoard();
+#endif
     // srv
-    //_srvControl = new SrvCtrl();
+#ifdef rt_srv
+    _srvControl = new SrvCtrl();
+#endif
   }
 
 /**
@@ -92,8 +97,9 @@ void RobotRunner::run() {
   _startTime = getSystemTime();
   _stateEstimator->run();
   visualizationData->clear();
-  // srv
- // _srvControl->rosspin();
+#ifdef rt_srv
+  _srvControl->rosspin();
+#endif
   // Update the data from the robot
   setupStep();
   static int count_ini(0);
@@ -159,10 +165,13 @@ void RobotRunner::setupStep() {
     // todo any configuration
     _cheaterModeEnabled = false;
   }
-
+#ifdef rt_board
   get_keyboard_control_settings(&rc_control);
-  // srv
-  // get_srv_control_settings(&rc_control);
+#endif
+
+#ifdef rt_srv
+  get_srv_control_settings(&rc_control);
+#endif
   // todo safety checks, sanity checks, etc...
 }
 
@@ -208,8 +217,13 @@ RobotRunner::~RobotRunner() {
   delete _legController;
   delete _stateEstimator;
   delete _jpos_initializer;
+#ifdef rt_board
   delete _keyBoardControl;
-  //delete _srvControl;
+#endif
+
+#ifdef rt_srv
+  delete _srvControl;
+#endif
 }
 
 void RobotRunner::cleanup() {}

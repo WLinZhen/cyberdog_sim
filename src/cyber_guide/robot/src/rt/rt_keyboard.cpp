@@ -121,6 +121,15 @@ void KeyBoard::changeValue(){
     case '9':
       userValue.gait_type = 6;
       break;
+    case '6':
+      userValue.gait_type = 2;
+      break;
+    case '5':
+      userValue.gait_type = 3;
+      break;
+    case '4':
+      userValue.gait_type = 4;
+      break;
     default:
       break;
   }

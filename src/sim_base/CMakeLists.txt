@@ -80,6 +80,22 @@ install(TARGETS legged_plugin
     RUNTIME DESTINATION bin
 )
 
+add_library(visual_plugin SHARED 
+  src/actors_gazebo/visual_plugin.cpp
+)
+
+ament_target_dependencies(visual_plugin ${dependencies})
+
+
+target_link_libraries(visual_plugin ${GAZEBO_LIBRARIES} )
+
+install(TARGETS visual_plugin 
+    EXPORT export_${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
 add_executable(state_publisher_node src/actors_rviz/state_publisher_node.cpp src/actors_rviz/state_publisher.cpp)
 target_link_libraries(state_publisher_node legged_plugin)
 

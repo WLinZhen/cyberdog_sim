@@ -2,7 +2,6 @@
 // (X, Y, Z)
 #include <Dynamics/FloatingBaseModel.h>
 #include <Dynamics/Quadruped.h>
-#include <Utilities/Utilities_print.h>
 
 template <typename T>
 LocalPosTask<T>::LocalPosTask(const FloatingBaseModel<T>* robot, int link_idx,

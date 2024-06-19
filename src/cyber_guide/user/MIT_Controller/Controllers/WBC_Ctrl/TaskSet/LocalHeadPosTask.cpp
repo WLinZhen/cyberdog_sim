@@ -3,7 +3,6 @@
 #include <Dynamics/FloatingBaseModel.h>
 #include <Dynamics/Quadruped.h>
 #include <Math/orientation_tools.h>
-#include <Utilities/Utilities_print.h>
 
 template <typename T>
 LocalHeadPosTask<T>::LocalHeadPosTask(const FloatingBaseModel<T>* robot)

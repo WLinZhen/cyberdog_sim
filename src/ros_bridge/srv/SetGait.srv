@@ -1,0 +1,16 @@
+
+float64 nsegment
+
+int64 offset_1
+int64 offset_2
+int64 offset_3
+int64 offset_4
+
+int64 durations_1
+int64 durations_2
+int64 durations_3
+int64 durations_4
+
+---
+
+bool cmd_result

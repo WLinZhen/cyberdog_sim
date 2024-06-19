@@ -1,5 +1,5 @@
 #include "WBC_Ctrl.hpp"
-#include <Utilities/Utilities_print.h>
+
 #include <Utilities/Timer.h>
 
 template<typename T>
@@ -18,16 +18,12 @@ WBC_Ctrl<T>::WBC_Ctrl(FloatingBaseModel<T> model):
   _wbic = new WBIC<T>(cheetah::dim_config, &(_contact_list), &(_task_list));
   _wbic_data = new WBIC_ExtraData<T>();
   // WBC解析：对应于论文公式25中的Q1 Q2权重系数
-  _wbic_data->_W_floating = DVec<T>::Constant(6, 0.1);
-  //_wbic_data->_W_floating = DVec<T>::Constant(6, 50.);
-  //_wbic_data->_W_floating[5] = 0.1;
+  _wbic_data->_W_floating = DVec<T>::Constant(6, 0.1);//0,1
+
   _wbic_data->_W_rf = DVec<T>::Constant(12, 1.);
 
   _Kp_joint.resize(cheetah::num_leg_joint, 5.);
   _Kd_joint.resize(cheetah::num_leg_joint, 1.5);
-
-  //_Kp_joint_swing.resize(cheetah::num_leg_joint, 10.);
-  //_Kd_joint_swing.resize(cheetah::num_leg_joint, 1.5);
 
   _state.q = DVec<T>::Zero(cheetah::num_act_joint);
   _state.qd = DVec<T>::Zero(cheetah::num_act_joint);

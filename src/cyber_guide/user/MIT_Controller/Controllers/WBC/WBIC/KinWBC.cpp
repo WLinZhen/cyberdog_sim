@@ -1,5 +1,5 @@
 #include "KinWBC.hpp"
-#include <Utilities/Utilities_print.h>
+
 #include <Utilities/pseudoInverse.h>
 
 template <typename T>

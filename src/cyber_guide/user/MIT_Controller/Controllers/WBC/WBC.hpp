@@ -1,7 +1,7 @@
 #ifndef WHOLE_BODY_CONTROLLER
 #define WHOLE_BODY_CONTROLLER
 
-#include <Utilities/Utilities_print.h>
+
 #include <Utilities/pseudoInverse.h>
 #include <cppTypes.h>
 #include <vector>

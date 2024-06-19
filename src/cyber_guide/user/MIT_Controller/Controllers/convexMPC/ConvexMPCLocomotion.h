@@ -11,12 +11,14 @@
 #include "ros_bridge/msg/v_traj.hpp"
 #include "ros_bridge/msg/v_state.hpp"
 #include "ros_bridge/msg/v_pf.hpp"
+#include "ros_bridge/msg/qweights.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
-
+#include "ros_bridge/srv/set_gait.hpp"
 #include <cstdio>
 // CONTACT DETECT
 #include "Controllers/ContactEstimator.h"
-
+#include "wfilter.hpp"
+#include "op.hpp"
 // #include "PPC.hpp"
 using Eigen::Array4f;
 using Eigen::Array4i;
@@ -94,11 +96,12 @@ public:
 
     ConvexMPCLocomotion(float _dt, int _iterations_between_mpc, MIT_UserParameters* parameters);
     void initialize();
-
+    //----- LOCO RUN -----//
     template<typename T>
     void run(ControlFSMData<T>& data);
+    //----- LOCO RUN END-----//
     bool currently_jumping = false;
-
+    //----- ROBOT STATE -----//
     Vec3<float> pBody_des;
     Vec3<float> vBody_des;
     Vec3<float> aBody_des;
@@ -113,20 +116,44 @@ public:
     Vec3<float> Fr_des[4];
 
     Vec4<float> contact_state;
-
+    //----- ROBOT STATE END -----//
 private:
-    // ros
+    //----- ROS -----//
     rclcpp::Node::SharedPtr node;
     ros_bridge::msg::VState                                vstate_msg;
     ros_bridge::msg::VTraj                                 vtraj_msg;
     ros_bridge::msg::VPf                                   vpf_msg;
+    ros_bridge::msg::Qweights                              qweight_msg;
+
+    std_msgs::msg::Float64MultiArray                       debug_msg;
+    std_msgs::msg::Float64MultiArray                       weights_msg;
+
     rclcpp::Publisher<ros_bridge::msg::VState>::SharedPtr  vstate_pub;
     rclcpp::Publisher<ros_bridge::msg::VTraj>::SharedPtr   vtraj_pub;
     rclcpp::Publisher<ros_bridge::msg::VPf>::SharedPtr     vpf_pub;
-    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr   debug_pub;
+    rclcpp::Subscription<ros_bridge::msg::Qweights>::SharedPtr qweight_sub;
 
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr   debug_pub;
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr   weights_pub;
+
+    void qweightCallback(const ros_bridge::msg::Qweights msg);
+    //----- ROS END-----//
+
+    //----- LOCO RUN -----//
     void _SetupCommand(ControlFSMData<float> & data);
 
+    void recompute_timing(int iterations_per_mpc);
+
+    void updateMPCIfNeeded(int* mpcTable, ControlFSMData<float>& data, bool omniMode);
+    
+    void solveDenseMPC(int *mpcTable, ControlFSMData<float> &data);
+    
+    void solveSparseMPC(int *mpcTable, ControlFSMData<float> &data);
+   
+    void initSparseMPC();
+    //----- LOCO RUN END-----//
+
+    //----- ROBOT STATE COMMON -----//
     float _yaw_turn_rate;
     float _yaw_des;
 
@@ -136,18 +163,12 @@ private:
     float _x_vel_des = 0.;
     float _y_vel_des = 0.;
 
-    // High speed running
-    //float _body_height = 0.34;
-    float _body_height = 0.29;
+    float _body_height = 0.25;
 
-    float _body_height_running = 0.29;
+    float _body_height_running = 0.25;
     float _body_height_jumping = 0.36;
 
-    void recompute_timing(int iterations_per_mpc);
-    void updateMPCIfNeeded(int* mpcTable, ControlFSMData<float>& data, bool omniMode);
-    void solveDenseMPC(int *mpcTable, ControlFSMData<float> &data);
-    void solveSparseMPC(int *mpcTable, ControlFSMData<float> &data);
-    void initSparseMPC();
+
     int iterationsBetweenMPC;
     int horizonLength;
     int default_iterations_between_mpc;
@@ -155,10 +176,8 @@ private:
     float dtMPC;
     int iterationCounter = 0;
     Vec3<float> f_ff[4];
-    Vec4<float> swingTimes;
-    FootSwingTrajectory<float> footSwingTrajectories[4];
-    OffsetDurationGait trotting, bounding, pronking, jumping, galloping, standing, trotRunning, walking, walking2, pacing;
-    MixedFrequncyGait random, random2;
+    bool isprint;
+
     Mat3<float> Kp, Kd, Kp_stance, Kd_stance;
     bool firstRun = true;
     bool firstSwing[4];
@@ -184,7 +203,23 @@ private:
     SparseCMPC _sparseCMPC;
 
     float step_height;
+    //----- ROBOT STATE COMMON END-----//
 
+    //----- MPC COMMON -----//
+    Vec12<double> weights;
+    //----- MPC COMMON END-----//
+    
+    //----- FOOT TRAJ %-----//
+    Vec4<float> swingTimes;
+    FootSwingTrajectory<float> footSwingTrajectories[4];
+    //----- FOOT TRAJ % END-----//
+
+    //----- GAIT DESIGN -----//
+    OffsetDurationGait trotting, bounding, pronking, jumping, galloping, standing, trotRunning, walking, walking2, pacing;
+    MixedFrequncyGait random, random2;
+    //----- GAIT DESIGN END-----//
+
+    //---- TERRAIN -----//
     Eigen::Matrix<float,Eigen::Dynamic,Eigen::Dynamic> wPla;
     Eigen::Matrix<float,Eigen::Dynamic,Eigen::Dynamic> wPlaInv;
     Eigen::Matrix<float,4,1> zFoot;
@@ -192,10 +227,24 @@ private:
     Eigen::Matrix<float,3,3> rPla;
     Vec3<float> rpyPlane;
     Vec3<float> rpyDesFin;
-    bool isprint;
+    //---- TERRAIN END -----//
 
+    // ------ FILTER FOR TERRAIN ------//
+    MovingWindowFilter des_roll;
+    MovingWindowFilter des_pitch;
+    MovingWindowFilter des_yaw;
+    // ------ FILTER FOR TERRAIN END------//
+    
+    // ------ FIX YAW ------//
     float yaw_des_count;
     float yaw_error_;
+    // ------ FIX YAW END------//
+
+    // ------ ADAPTIVE LOAD ----- //
+    double z_force;
+    MovingWindowFilter z_force_;
+    MovingWindowFilter mass_fix;
+    double mass_;
 };
 
 

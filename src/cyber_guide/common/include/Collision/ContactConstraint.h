@@ -13,7 +13,7 @@
 
 #include "Collision/Collision.h"
 #include "Dynamics/FloatingBaseModel.h"
-#include "Utilities/Utilities_print.h"
+
 #include "cppTypes.h"
 
 #define CC ContactConstraint<T>

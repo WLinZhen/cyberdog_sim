@@ -1,7 +1,7 @@
 #ifndef WHOLE_BODY_IMPULSE_CONTROL_H
 #define WHOLE_BODY_IMPULSE_CONTROL_H
 
-#include <Utilities/Utilities_print.h>
+
 #include <Goldfarb_Optimizer/QuadProg++.hh>
 #include <WBC/ContactSpec.hpp>
 #include <WBC/Task.hpp>

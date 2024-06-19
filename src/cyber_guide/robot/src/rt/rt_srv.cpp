@@ -46,7 +46,7 @@ void SrvCtrl::cmd_srv_request(const  std::shared_ptr<ros_bridge::srv::UsrCmd::Re
                                 std::shared_ptr<ros_bridge::srv::UsrCmd::Response> response)
 {
     //std::cout<<"111";
-    switch (request->gait_type)
+    switch (request->control_mode)
     {
     case 0:
         userCmd = UserCommand::PASSIVE;
@@ -58,7 +58,7 @@ void SrvCtrl::cmd_srv_request(const  std::shared_ptr<ros_bridge::srv::UsrCmd::Re
         userCmd = UserCommand::BALANCE_STAND;
     break;
     case 3:
-        userCmd = UserCommand::LOCOMOTION;
+          userCmd = UserCommand::LOCOMOTION;
     break;
     default:
         userCmd = UserCommand::NONE;
@@ -99,7 +99,18 @@ void* SrvCtrl::run(void *arg){
         break;
       case UserCommand::LOCOMOTION:
         srv_control.mode = RC_mode::LOCOMOTION;
-        userValue.setZero();
+        if(srv_control.mode == RC_mode::LOCOMOTION){
+          srv_control.v_des[0] = userValue.forward_vel;
+          srv_control.v_des[1] = userValue.lateral_vel;
+          srv_control.v_des[2] = 0.f;
+          srv_control.omega_des[0] = 0.f;
+          srv_control.omega_des[1] = userValue.rotation_pitch;
+          srv_control.omega_des[2] = userValue.rotation_yaw;
+          srv_control.variable[0] = userValue.gait_type;
+          srv_control.variable[1] = userValue.step_height;
+          srv_control.isPrint = userValue.isprint;
+        }
+        //userValue.setZero();
         break;
       case UserCommand::NONE:
         if(srv_control.mode == RC_mode::LOCOMOTION){

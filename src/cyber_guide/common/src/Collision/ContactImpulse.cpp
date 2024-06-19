@@ -6,7 +6,6 @@
  */
 
 #include "Collision/ContactImpulse.h"
-#include "Utilities/Utilities_print.h"
 
 /*!
  * Update the q_dot values of a model based on impulse based contact dynamics

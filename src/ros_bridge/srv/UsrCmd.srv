@@ -5,8 +5,8 @@ float64 cmd_vely
 float64 cmd_yaw
 float64 cmd_pitch
 float64 foot_height
-int64     gait_type
-
+int64   gait_type
+int64   control_mode
 ---
 
 bool cmd_result

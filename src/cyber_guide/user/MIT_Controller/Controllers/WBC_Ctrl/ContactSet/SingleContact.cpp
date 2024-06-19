@@ -1,5 +1,5 @@
 #include "SingleContact.hpp"
-#include <Utilities/Utilities_print.h>
+
 
 // [ Fx, Fy, Fz ]
 template <typename T>

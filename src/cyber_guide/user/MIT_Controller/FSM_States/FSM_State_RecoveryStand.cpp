@@ -5,7 +5,6 @@
  */
 
 #include "FSM_State_RecoveryStand.h"
-#include <Utilities/Utilities_print.h>
 
 
 /**

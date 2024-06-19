@@ -3,7 +3,6 @@
 #include <Dynamics/FloatingBaseModel.h>
 #include <Dynamics/Quadruped.h>
 #include <Math/orientation_tools.h>
-#include <Utilities/Utilities_print.h>
 
 
 template <typename T>
@@ -37,14 +36,6 @@ bool LocalRollTask<T>::_UpdateCommand(const void* pos_des, const DVec<T>& vel_de
       _Kd[0] * (TK::vel_des_[0] - _robot_sys->_state.bodyVelocity[0]) +
       TK::acc_des_[0];
 
-  // printf("[Body Ori Roll Task]\n");
-  // pretty_print(TK::pos_err_, std::cout, "pos_err_");
-  // pretty_print(rpy, std::cout, "rpy");
-  // pretty_print(_robot_sys->_state.bodyVelocity, std::cout, "body velocity");
-  // pretty_print(TK::op_cmd_, std::cout, "op cmd");
-  // pretty_print(acc_des, std::cout, "acc_des");
-  // printf("\n");
-  // pretty_print(TK::Jt_, std::cout, "Jt");
 
   return true;
 }

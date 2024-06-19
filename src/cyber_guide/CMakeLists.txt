@@ -65,14 +65,14 @@ if(${PLATFORM} STREQUAL "gazebo")
   include_directories("./")
   include_directories("/opt/ros/galactic/include")
   include_directories("./sim/gazebo/include")
-  #  include_directories("./sim/gazebo/include")
+  
   include_directories("./common")
   include_directories("./common/include")
   include_directories("./user/MIT_Controller")
   include_directories("./robot/include")
   include_directories("./common/FootstepPlanner")
   include_directories("./common/FootstepPlanner")
-  include_directories("/usr/local/include/lcm")
+
   include_directories(SYSTEM "third-party/qpOASES/include")
 
   link_directories(
@@ -99,7 +99,7 @@ if(${PLATFORM} STREQUAL "gazebo")
   # Setup the target executable.
   add_executable(cyber_guide ${SOURCES})
 
-  target_link_libraries(cyber_guide  mit_ctrl robot biomimetics qpOASES osqp WBC_Ctrl Goldfarb_Optimizer pthread lcm inih dynacore_param_handler lord_imu soem)
+  target_link_libraries(cyber_guide  mit_ctrl robot biomimetics qpOASES osqp WBC_Ctrl Goldfarb_Optimizer pthread  inih dynacore_param_handler lord_imu soem)
   target_link_libraries(cyber_guide  ${catkin_LIBRARIES})
   target_link_libraries(cyber_guide  ioros)
 

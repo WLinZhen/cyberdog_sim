@@ -18,6 +18,7 @@ OffsetDurationGait::OffsetDurationGait(int nSegment, Vec4<int> offsets, Vec4<int
   _swing = nSegment - durations[0];
 }
 
+
 MixedFrequncyGait::MixedFrequncyGait(int nSegment, Vec4<int> periods, float duty_cycle, const std::string &name) {
   _name = name;
   _duty_cycle = duty_cycle;

@@ -36,10 +36,12 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SimBase.msg"
   "msg/Estimate.msg"
   "srv/UsrCmd.srv"
+  "srv/SetGait.srv"
   "msg/TrajVisual.msg"
   "msg/VTraj.msg"
   "msg/VState.msg"
   "msg/VPf.msg"
+  "msg/Qweights.msg"
   DEPENDENCIES builtin_interfaces sensor_msgs geometry_msgs action_msgs
 )
 

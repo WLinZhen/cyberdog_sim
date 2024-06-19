@@ -67,22 +67,22 @@ ControlFSM<T>::ControlFSM(Quadruped<T>* _quadruped,
  */
 template <typename T>
 void ControlFSM<T>::initialize() {
-
-  data.userParameters->Kp_joint = Vec3<double>(2,2,3);//2,2,3
-  data.userParameters->Kd_joint = Vec3<double>(0.2, 0.2, 0.2);//0.2, 0.2, 0.2//1, 0.2, 0.2
+  
+  data.userParameters->Kp_joint = Vec3<double>(2, 2, 2);//2,2,3
+  data.userParameters->Kd_joint = Vec3<double>(1, 0.2, 0.2);//0.2, 0.2, 0.2//1, 0.2, 0.2
 
   data.userParameters->Kp_body = Vec3<double>(100,100,120);//40,40,120//100,100,120
-  data.userParameters->Kd_body = Vec3<double>(10, 10, 20);//20, 20, 10
+  data.userParameters->Kd_body = Vec3<double>(20, 20, 10);//20, 20, 10
 
-  data.userParameters->Kp_foot = Vec3<double>(800,800,60);//100,100,120//100,100,60
-  data.userParameters->Kd_foot = Vec3<double>(60,60,5);//5,5,5
+  data.userParameters->Kp_foot = Vec3<double>(100,100,60);//100,100,120//100,100,60
+  data.userParameters->Kd_foot = Vec3<double>(5,5,5);//5,5,5
 
-  data.userParameters->Kp_ori = Vec3<double>(100,100,100);//200,200,200
+  data.userParameters->Kp_ori = Vec3<double>(200,200,200);//200,200,200
   data.userParameters->Kd_ori = Vec3<double>(10,10,20);//10,10,20
 
   data.userParameters->cmpc_gait         = 9;
   data.userParameters->cmpc_x_drag       = 3;
-  data.userParameters->cmpc_use_sparse   = 0;
+  data.userParameters->cmpc_use_sparse   = 1;
   data.userParameters->cmpc_bonus_swing  = 0;
   data.userParameters->jcqp_alpha        = 1.5;
   data.userParameters->jcqp_max_iter     = 10000;
@@ -96,7 +96,7 @@ void ControlFSM<T>::initialize() {
   data.userParameters->Swing_Kd_cartesian = Vec3<double> (14, 14, 14);//5.5, 5.5, 5.5
   data.userParameters->Swing_Kp_joint     = Vec3<double> (0, 0, 0);
   data.userParameters->Swing_Kd_joint     = Vec3<double> (0.2, 0.2, 0.2);//0.2, 0.2, 0.2
-  data.userParameters->Swing_step_offset  = Vec3<double> (0, 0.0, 0.0);//0,0.05,-0.003
+  data.userParameters->Swing_step_offset  = Vec3<double> (0,0,0);//0,0.05,-0.003
   data.userParameters->Swing_traj_height  = 0.07;//0.07
   data.userParameters->Swing_use_tau_ff   = 0;
 
@@ -151,8 +151,6 @@ void ControlFSM<T>::runFSM() {
       data.controlParameters->control_mode = K_VISION;
 
     }
-      //data.controlParameters->control_mode = K_FRONTJUMP;
-    //std::cout<< "control mode: "<<data.controlParameters->control_mode<<std::endl;
   }
 
   // Run the robot control code if operating mode is not unsafe
@@ -301,16 +299,6 @@ FSM_State<T>* ControlFSM<T>::getNextState(FSM_StateName stateName) {
 
     case FSM_StateName::RECOVERY_STAND:
       return statesList.recoveryStand;
-
-    // case FSM_StateName::VISION:
-    //   return statesList.vision;
-
-    // case FSM_StateName::BACKFLIP:
-    //   return statesList.backflip;
-
-    // case FSM_StateName::FRONTJUMP:
-    //   return statesList.frontJump;
-
     default:
       return statesList.invalid;
   }

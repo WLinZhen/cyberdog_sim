@@ -12,7 +12,6 @@
 
 #include "Utilities/PeriodicTask.h"
 #include "Utilities/Timer.h"
-#include "Utilities/Utilities_print.h"
 
 
 /*!
@@ -78,9 +77,7 @@ void PeriodicTask::clearMax() {
 void PeriodicTask::printStatus() {
   if (!_running) return;
   if (isSlow()) {
-    printf_color(PrintColor::Red, "|%-20s|%6.4f|%6.4f|%6.4f|%6.4f|%6.4f\n",
-                 _name.c_str(), _lastRuntime, _maxRuntime, _period,
-                 _lastPeriodTime, _maxPeriod);
+    
   } else {
     printf("|%-20s|%6.4f|%6.4f|%6.4f|%6.4f|%6.4f\n", _name.c_str(),
            _lastRuntime, _maxRuntime, _period, _lastPeriodTime, _maxPeriod);

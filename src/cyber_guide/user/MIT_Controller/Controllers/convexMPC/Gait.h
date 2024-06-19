@@ -29,7 +29,7 @@ using Eigen::Array4i;
 
 class OffsetDurationGait : public Gait {
 public:
-  OffsetDurationGait(int nSegment, Vec4<int> offset, Vec4<int> durations, const std::string& name);
+  OffsetDurationGait(int nSegment, Vec4<int> offsets, Vec4<int> durations, const std::string& name);
   ~OffsetDurationGait();
   Vec4<float> getContactState();
   Vec4<float> getSwingState();
@@ -39,7 +39,7 @@ public:
   float getCurrentSwingTime(float dtMPC, int leg);
   int getCurrentGaitPhase();
   void debugPrint();
-
+ 
 private:
   int* _mpc_table;
   Array4i _offsets; // offset in mpc segments

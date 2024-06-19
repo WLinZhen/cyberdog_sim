@@ -15,7 +15,6 @@
 #include <cstring>
 
 #include "Utilities/SegfaultHandler.h"
-#include "Utilities/Utilities_print.h"
 
 
 
@@ -28,8 +27,7 @@ static char* error_message_buffer;
 static void segfault_handler(int sig) {
   void* stack_frames[200];
   int size = backtrace(stack_frames, 200);
-  fprintf_color(PrintColor::Red, stderr, "CRASH: Caught %d (%s)\n",
-      sig, strsignal(sig));
+  
   backtrace_symbols_fd(stack_frames, size, STDERR_FILENO);
 
   fflush(stderr);

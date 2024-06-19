@@ -2,7 +2,6 @@
 
 #include <Dynamics/FloatingBaseModel.h>
 #include <Dynamics/Quadruped.h>
-#include <Utilities/Utilities_print.h>
 
 template <typename T>
 JPosTask<T>::JPosTask(const FloatingBaseModel<T>* robot)
