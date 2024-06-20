@@ -84,7 +84,7 @@ colcon build
 
 通过网线接口连接cyberdog2 ，并将用户电脑IPv4设为：192.168.44.100/255.255.255.0
 
-在cyberdog_io文件夹下打开终端，确保当前在cyberdog_io文件夹下,并且使用source install/setup.bash
+在cyber_io文件夹下打开终端，确保当前在cyberdog_io文件夹下,并且使用source install/setup.bash
 
 ```
 ./a.sh
