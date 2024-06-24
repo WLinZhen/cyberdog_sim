@@ -15,3 +15,7 @@ float64 yaw_rate
 float64 v_x
 float64 v_y
 float64 v_z
+
+float64 a_x
+float64 a_y
+float64 a_z

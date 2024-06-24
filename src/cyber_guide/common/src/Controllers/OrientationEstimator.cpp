@@ -62,10 +62,10 @@ void VectorNavOrientationEstimator<T>::run() {
 
     this->_stateEstimatorData.result->orientation =
             ori::quatProduct(_ori_ini_inv, this->_stateEstimatorData.result->orientation);
-    //    this->_stateEstimatorData.result->orientation[0] = ori_w.update(this->_stateEstimatorData.result->orientation[0]);
-    //    this->_stateEstimatorData.result->orientation[1] = ori_x.update(this->_stateEstimatorData.result->orientation[1]);
-    //    this->_stateEstimatorData.result->orientation[2] = ori_y.update(this->_stateEstimatorData.result->orientation[2]);
-    //    this->_stateEstimatorData.result->orientation[3] = ori_z.update(this->_stateEstimatorData.result->orientation[3]);
+//        this->_stateEstimatorData.result->orientation[0] = ori_w.update(this->_stateEstimatorData.result->orientation[0]);
+//        this->_stateEstimatorData.result->orientation[1] = ori_x.update(this->_stateEstimatorData.result->orientation[1]);
+//        this->_stateEstimatorData.result->orientation[2] = ori_y.update(this->_stateEstimatorData.result->orientation[2]);
+//        this->_stateEstimatorData.result->orientation[3] = ori_z.update(this->_stateEstimatorData.result->orientation[3]);
     
     this->_stateEstimatorData.result->rpy =
             ori::quatToRPY(this->_stateEstimatorData.result->orientation);
@@ -78,9 +78,9 @@ void VectorNavOrientationEstimator<T>::run() {
         this->_stateEstimatorData.result->omegaBody[i] =
                 this->_stateEstimatorData.lowState->imu.gyroscope[i];
     }
-    //    this->_stateEstimatorData.result->omegaBody[0] = omg_x.update(this->_stateEstimatorData.result->omegaBody[0]);
-    //    this->_stateEstimatorData.result->omegaBody[1] = omg_y.update(this->_stateEstimatorData.result->omegaBody[1]);
-    //    this->_stateEstimatorData.result->omegaBody[2] = omg_z.update(this->_stateEstimatorData.result->omegaBody[2]);
+       this->_stateEstimatorData.result->omegaBody[0] = omg_x.update(this->_stateEstimatorData.result->omegaBody[0]);
+       this->_stateEstimatorData.result->omegaBody[1] = omg_y.update(this->_stateEstimatorData.result->omegaBody[1]);
+       this->_stateEstimatorData.result->omegaBody[2] = omg_z.update(this->_stateEstimatorData.result->omegaBody[2]);
     
 
     this->_stateEstimatorData.result->omegaWorld =
@@ -92,9 +92,9 @@ void VectorNavOrientationEstimator<T>::run() {
         this->_stateEstimatorData.result->aBody[i] =
                 this->_stateEstimatorData.lowState->imu.accelerometer[i]; // 0 0 9.8
     }
-    //    this->_stateEstimatorData.result->aBody[0] = acc_x.update(this->_stateEstimatorData.result->aBody[0]);
-    //    this->_stateEstimatorData.result->aBody[1] = acc_y.update(this->_stateEstimatorData.result->aBody[1]);
-    //    this->_stateEstimatorData.result->aBody[2] = acc_z.update(this->_stateEstimatorData.result->aBody[2]);
+       this->_stateEstimatorData.result->aBody[0] = acc_x.update(this->_stateEstimatorData.result->aBody[0]);
+       this->_stateEstimatorData.result->aBody[1] = acc_y.update(this->_stateEstimatorData.result->aBody[1]);
+       this->_stateEstimatorData.result->aBody[2] = acc_z.update(this->_stateEstimatorData.result->aBody[2]);
     this->_stateEstimatorData.result->aWorld =
             this->_stateEstimatorData.result->rBody.transpose() *
             this->_stateEstimatorData.result->aBody;

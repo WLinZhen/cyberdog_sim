@@ -189,9 +189,9 @@ void CustomInterface::Handle_RobotState_Lcm( const lcm::ReceiveBuffer* rbuf, con
     ( void )rbuf;
     ( void )chan;
     for ( int i = 0; i < 3; i++ ) {
-        robot_data_.omega[ i ] = msg->omegaWorld[ i ];
+        robot_data_.omega[ i ] = msg->omegaBody[ i ];
         robot_data_.rpy[ i ]   = msg->rpy[ i ];
-        robot_data_.acc[ i ]   = msg->aWorld[ i ];
+        robot_data_.acc[ i ]   = msg->aBody[ i ];
     }
     for ( int i = 0; i < 4; i++ ) {
         robot_data_.quat[ i ] = msg->quat[ i ];
