@@ -74,7 +74,7 @@ void ControlFSM<T>::initialize() {
   data.userParameters->Kp_body = Vec3<double>(100,100,120);//40,40,120//100,100,120
   data.userParameters->Kd_body = Vec3<double>(20, 20, 10);//20, 20, 10
 
-  data.userParameters->Kp_foot = Vec3<double>(100,100,60);//100,100,120//100,100,60
+  data.userParameters->Kp_foot = Vec3<double>(200,200,40);//100,100,120//100,100,60
   data.userParameters->Kd_foot = Vec3<double>(5,5,5);//5,5,5
 
   data.userParameters->Kp_ori = Vec3<double>(200,200,200);//200,200,200

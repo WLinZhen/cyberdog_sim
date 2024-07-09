@@ -1,6 +1,0 @@
-/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge/cmake-build-debug/rosidl_adapter/ros_bridge:msg/LeggedCommand.idl
-/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge/cmake-build-debug/rosidl_adapter/ros_bridge:msg/SimImu.idl
-/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge/cmake-build-debug/rosidl_adapter/ros_bridge:msg/SimJoint.idl
-/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge/cmake-build-debug/rosidl_adapter/ros_bridge:msg/SimBase.idl
-/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge/cmake-build-debug/rosidl_adapter/ros_bridge:msg/Estimate.idl
-/home/jh/cheetah/sim_ws/sim_ws/src/ros_bridge/cmake-build-debug/rosidl_adapter/ros_bridge:srv/UsrCmd.idl

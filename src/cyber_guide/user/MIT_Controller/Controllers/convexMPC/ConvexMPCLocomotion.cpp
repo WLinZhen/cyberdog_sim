@@ -19,23 +19,24 @@ ConvexMPCLocomotion::ConvexMPCLocomotion(float _dt, int _iterations_between_mpc,
         iterationsBetweenMPC(_iterations_between_mpc),
         horizonLength(10),//10
         dt(_dt),
-        trotting(int(horizonLength*2.4), Vec4<int>(0,12,12,0), Vec4<int>(12,12,12,12),"Trotting"),//int(horizonLength*2), Vec4<int>(0,10,10,0), Vec4<int>(10,10,10,10),"Trotting")22,22,22,22
-        bounding(horizonLength, Vec4<int>(5,5,0,0),Vec4<int>(5,5,5,5),"Bounding"),
+        standing(horizonLength, Vec4<int>(0,0,0,0),Vec4<int>(10,10,10,10),"Standing"),//0
+        trotting(int(horizonLength*1.2), Vec4<int>(0,6,6,0), Vec4<int>(6,6,6,6),"Trotting"),//4
+        walking(int(horizonLength*3.2), Vec4<int>(0,16,16,0), Vec4<int>(24,24,24,24), "Walking"),//5
+        pacing(horizonLength, Vec4<int>(5,0,5,0),Vec4<int>(5,5,5,5),"Pacing"),//6
+        jumping(horizonLength, Vec4<int>(0,0,0,0), Vec4<int>(5,5,5,5), "Jumping"),//7
+        galloping(horizonLength, Vec4<int>(0,3,6,9),Vec4<int>(4,4,4,4),"Gallopsing"),//8
+        bounding(horizonLength, Vec4<int>(5,5,0,0),Vec4<int>(5,5,5,5),"Bounding"),//9
+
         pronking(horizonLength*1.2, Vec4<int>(0,0,0,0),Vec4<int>(5,5,5,5),"Pronking"),
-        jumping(horizonLength, Vec4<int>(0,0,0,0), Vec4<int>(2,2,2,2), "Jumping"),
-        galloping(horizonLength, Vec4<int>(0,3,6,9),Vec4<int>(4,4,4,4),"Gallopsing"),
-        standing(horizonLength, Vec4<int>(0,0,0,0),Vec4<int>(10,10,10,10),"Standing"),
         trotRunning(horizonLength*1.6, Vec4<int>(0,10,10,0),Vec4<int>(6,6,6,6),"Trot Running"),
-        walking(int(horizonLength*4), Vec4<int>(0,20,20,0), Vec4<int>(30,30,30,30), "Walking"),
         walking2(horizonLength, Vec4<int>(0,5,5,0), Vec4<int>(7,7,7,7), "Walking2"),
-        pacing(horizonLength, Vec4<int>(5,0,5,0),Vec4<int>(5,5,5,5),"Pacing"),
         random(horizonLength, Vec4<int>(9,13,13,9), 0.4, "Flying nine thirteenths trot"),
         random2(horizonLength, Vec4<int>(8,16,16,8), 0.5, "Double Trot")
 {
   _parameters = parameters;
   dtMPC = dt * iterationsBetweenMPC;
   default_iterations_between_mpc = iterationsBetweenMPC;
-  weights << 1.25, 1.25, 2, 2, 2, 50, 0.1, 0.1, 0.3, 1.5, 1.5, 0.2;
+  weights << 1.25, 1.25, 2, 2, 2, 50, 0.2, 0.2, 0.3, 2, 2, 0.2;
 
   printf("[Convex MPC] dt: %.3f iterations: %d, dtMPC: %.3f\n", dt, iterationsBetweenMPC, dtMPC);
   setup_problem(dtMPC, horizonLength, 0.3, 120);
@@ -226,22 +227,18 @@ void ConvexMPCLocomotion::run(ControlFSMData<float>& data) {
 
   // pick gait
   Gait* gait = &standing;
-  if(gaitNumber == 1)
-    gait = &bounding;
-  else if(gaitNumber == 2)
-    gait = &pronking;
-  else if(gaitNumber == 3)
-    gait = &random;
-  else if(gaitNumber == 4)
+  if(gaitNumber == 4)
     gait = &trotting;
   else if(gaitNumber == 5)
-    gait = &trotRunning;
-  else if(gaitNumber == 6)
     gait = &walking;
-  else if(gaitNumber == 7)
-    gait = &random2;
-  else if(gaitNumber == 8)
+  else if(gaitNumber == 6)
     gait = &pacing;
+  else if(gaitNumber == 7)
+    gait = &jumping;
+  else if(gaitNumber == 8)
+    gait = &galloping;
+  else if(gaitNumber == 9)
+    gait = &bounding;
   current_gait = gaitNumber;
 
   gait->setIterations(iterationsBetweenMPC, iterationCounter);
@@ -462,9 +459,9 @@ void ConvexMPCLocomotion::run(ControlFSMData<float>& data) {
   // ----- COMPUTE TERRAIN END------ //
 
   // ----- ROS DEBUG TERRAIN ------ //
-  // debug_msg.data[3] = (double)rpyPlane[0];
-  // debug_msg.data[4] = (double)rpyPlane[1];
-  // debug_msg.data[5] = (double)rpyPlane[2];
+  debug_msg.data[3] = (double)rpyPlane[0];
+  debug_msg.data[4] = (double)rpyPlane[1];
+  debug_msg.data[5] = (double)rpyPlane[2];
   debug_pub->publish(debug_msg);
   // ----- ROS DEBUG TERRAIN END------ //
 
@@ -479,7 +476,7 @@ void ConvexMPCLocomotion::run(ControlFSMData<float>& data) {
   Kp_stance = 0*Kp;
 
 
-  Kd << 7, 0, 0,//7,0,0,
+  Kd <<   7, 0, 0,//7,0,0,
           0, 7, 0,//0,7,0,
           0, 0, 7;//0,0,7;
   Kd_stance = Kd;
@@ -743,7 +740,7 @@ void ConvexMPCLocomotion::updateMPCIfNeeded(int *mpcTable, ControlFSMData<float>
 void ConvexMPCLocomotion::solveDenseMPC(int *mpcTable, ControlFSMData<float> &data) {
   auto seResult = data._stateEstimator->getResult();
   // ----- MPC QWEIGHT ------ //
-  static float Q[12] = {1, 10, 50, 2, 2, 50, 0, 0, 0.1, 1.5, 1.5, 0.2};
+  static float Q[12] = {1, 1, 1, 2, 2, 50, 0, 0, 0.1, 1.5, 1.5, 0.2};
   // ----- MPC QWEIGHT END ------ //
   
   // ----- MPC STATE ------ //
@@ -957,7 +954,9 @@ void ConvexMPCLocomotion::solveSparseMPC(int *mpcTable, ControlFSMData<float> &d
   z_force = grf_fl[2] + grf_fr[2]+ grf_rl[2] + grf_rr[2];
 
 #ifdef USE_ROS_DEBUG  
-  debug_msg.data[7] = z_force/9.81;
+ for(u32 foot = 0; foot < 4; foot++) {
+  debug_msg.data[foot+6] = firstSwing[foot]+foot*2;//z_force/9.81
+  }
 #endif
   // if(debug_msg.data[7]<8)
   // {
@@ -984,7 +983,7 @@ void ConvexMPCLocomotion::initSparseMPC() {
     dtTraj.push_back(dtMPC);
   }
   _sparseCMPC.setRobotParameters(baseInertia, mass, maxForce);
-  _sparseCMPC.setFriction(0.4);
+  _sparseCMPC.setFriction(0.3);
   _sparseCMPC.setWeights(weights, 4e-5);
   _sparseCMPC.setDtTrajectory(dtTraj);
 

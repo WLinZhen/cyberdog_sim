@@ -112,23 +112,23 @@ void KeyBoard::changeValue(){
     case 'p':case 'P':
       userValue.isprint = !userValue.isprint;
       break;
-    case '7':
-      userValue.gait_type = 0;
-      break;
-    case '8':
-      userValue.gait_type = 5;
-      break;
-    case '9':
-      userValue.gait_type = 6;
-      break;
-    case '6':
-      userValue.gait_type = 2;
+    case '4':
+      userValue.gait_type = 4; // trot
       break;
     case '5':
-      userValue.gait_type = 3;
+      userValue.gait_type = 5; // walk
       break;
-    case '4':
-      userValue.gait_type = 4;
+    case '6':
+      userValue.gait_type = 6; // pace
+      break;
+    case '7':
+      userValue.gait_type = 7; // jumping
+      break;
+    case '8':
+      userValue.gait_type = 8; // gallop
+      break;
+    case '9':
+      userValue.gait_type = 9; // bounding
       break;
     default:
       break;

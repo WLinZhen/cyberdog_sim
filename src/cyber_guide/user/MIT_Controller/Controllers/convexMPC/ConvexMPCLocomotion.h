@@ -18,7 +18,7 @@
 // CONTACT DETECT
 #include "Controllers/ContactEstimator.h"
 #include "wfilter.hpp"
-#include "op.hpp"
+// #include "op.hpp"
 // #include "PPC.hpp"
 using Eigen::Array4f;
 using Eigen::Array4i;

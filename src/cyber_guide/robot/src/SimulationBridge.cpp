@@ -148,7 +148,7 @@ void SimulationBridge::runRobotControl() {
     _robotParams.foot_height_sensor_noise      = 0.001;
     _robotParams.foot_process_noise_position   =   0.002;
     _robotParams.foot_sensor_noise_position     =   0.001;
-    _robotParams.foot_sensor_noise_velocity     =   0.1;
+    _robotParams.foot_sensor_noise_velocity     =   0.05;
     _robotParams.imu_process_noise_position     =   0.02;
     _robotParams.imu_process_noise_velocity     =   0.02;
     _robotParams.use_rc =1;
